@@ -1,0 +1,115 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Lager & Ale
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <ion-card mode="ios">
+        <img src="/assets/SNM.jpg" style="display: block; margin: 0 auto;">
+        <br>
+        <ion-card-title class="ion-text-center">
+            ¿Cuánto alcohol contiene una cerveza?
+        </ion-card-title>
+        <ion-card-content>Para saber qué concentración de alcohol tiene una cerveza, se emplea la Unidad de Bebida Estándar (UBE). Una cerveza contienen una cantidad fija de alcohol, pero hay variaciones según la cerveza.
+            <br>
+            <br> El Reglamento de Tránsito prohíbe conducir vehículos, cuando hay una cantidad de alcohol en sangre superior a 0.8 g/lt, o su equivalente en aire 0.4 mg/lt. Consumir alcohol en la adolescencia perjudica la salud, el desarrollo y nuestras
+            relaciones.
+            <br>
+            <br> Si has decidido beber… ¿cómo evitar que el nivel de alcohol en tu cuerpo se eleve?
+            <br>
+            <br> Bebe lentamente, evita los “shots” o “fondos” Espacia los tragos e intercala con bebidas sin alcohol Come antes y durante el consumo Evita beber más de dos copas de alcohol si eres mujer y más de tres si eres hombre
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card mode="ios">
+        <ion-card-title class="ion-text-center">Nivel aproximado de porcentaje de alcohol en la sangre.</ion-card-title>
+        <ion-card-subtitle><br>ESTO ES UN APROXIMADO, EL PORCENTAJE PUEDE VARIAR DEPENDIENDO DE MUCHOS FACTORES. SI TOMAS NO MANEJES.</ion-card-subtitle>
+        <ion-card-content>Para obtener el nivel aproximado de porcentaje de alcohol en la sangre es necesario ingresar los siguientes datos:
+            <br>
+            <ul>
+                <li>Volumen de la cerveza (en mililitros):</li>
+                <ion-input type="number" placeholder="Volumen (en mililitros):" id="vol" [(ngModel)]="vol"></ion-input>
+                <li>Porcentaje de alcohol en la cerveza:</li>
+                <ion-input type="number" placeholder="Porcentaje de alcohol en la cerveza:" id="porcentaje" [(ngModel)]="porcentaje"></ion-input>
+                <ng-container *ngIf="userInfo?.peso; else template">
+                    <li>Peso (Aproximado en kilogramos):</li>
+                    <ion-input type="number" id="peso" [(ngModel)]="peso" disabled="true"></ion-input>
+                </ng-container>
+
+                <ng-template #template>
+                    <li>Peso (Aproximado en kilogramos):</li>
+                    <ion-input placeholder="Peso aproximado:" type="number" id="peso" [(ngModel)]="peso"></ion-input>
+                </ng-template>
+                <li>Cantidad de cervezas ingeridas:</li>
+                <ion-input type="number" placeholder="Cantidad de cervezas ingeridas:" id="cantidad" [(ngModel)]="cantidad"></ion-input>
+            </ul>
+            <ion-button expand="block" (click)="operacion()" (click)="mensaje0()" (click)="mensaje1()" (click)="mensaje2()" (click)="mensaje3()">Calcular</ion-button>
+            <br> Los gramos de alcohol puro de una cerveza son: {{resp}}
+            <br> <b>* % de alcohol por una cerveza: {{respf?.toPrecision(2)}}</b>
+            <br> <b>* % de alcohol por las cervezas consumidas: {{respt?.toPrecision(2)}}</b>
+            <br> <b>* :</b> Estos datos son APROXIMADOS y TEORICOS, el % de alcohol por una o varias cervezas puede variar dependiendo de muchos factores, como: el estado de animo, si se consumio algun alimento antes de beber, etc.
+            <!--<ion-card *ngIf="respt > 0.25">
+                <ion-img src="/assets/SNM.jpg"></ion-img>
+                <ion-card-title>Menor a 0.25</ion-card-title>
+                <ion-card-subtitle>Menor</ion-card-subtitle>
+            </ion-card>-->
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-title class="ion-text-center">Rangos y penalizaciones del alcoholimetro en Jalisco.</ion-card-title>
+        <br>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Grado de alcoholemia</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Clasificación</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Penalizacion</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>0.25 a 0.40 mg/lt de alcohol por litro de aire espirado.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Aliento alcohólico.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Multa equivalente de ciento cincuenta a doscientos días de salario mínimo general.</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>0.41 a 0.65 mg/lt de alcohol por litro de aire espirado.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Ebrio incompleto.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Arresto administrativo inconmutable de doce a veinticuatro y multa.</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4>
+                <ion-label>Más de 0.65 mg/lt de alcohol por litro de aire espirado.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>No apto para conducir.</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Arresto administrativo inconmutable de veinticuatro a treinta y seis horas. Además, dicha persona será sometida a una investigación de trabajo social y a exámenes de toxicomanía y alcoholismo.</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+</ion-content>

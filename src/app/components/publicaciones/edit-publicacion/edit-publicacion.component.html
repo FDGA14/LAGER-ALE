@@ -1,0 +1,15 @@
+<div>
+    <div>
+        <form [formGroup]="editPostForm" (ngSubmit)="editPublicacion(editPostForm.value)">
+
+            <ion-label>Descripcion</ion-label>
+            <ion-item>
+                <ion-textarea placeholder="Content post" formControlName="descripcion"></ion-textarea>
+            </ion-item>
+            <br>
+            <div>
+                <input type="submit" value="Save" mat-dialog-close="true">
+            </div>
+        </form>
+    </div>
+</div>

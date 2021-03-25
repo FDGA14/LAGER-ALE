@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Seguidores</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card *ngFor="let follower of userInfo.followers" mode="ios" color="warning">
+        <img [src]="follower.photoURL" style="display: block; margin: 0 auto;">
+        <ion-card-header>
+            <ion-card-title>{{follower.displayName}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            {{follower.descripcion}}
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,157 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Estilos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item color="warning">
+        <ion-title class="ion-text-center">ALE</ion-title>
+    </ion-item>
+
+    <br>
+    <ion-title class="ion-text-start">Amber Ale:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Amber Ale'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">IPA:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'IPA'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Porter:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Porter'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Stout:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Stout'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <ion-item color="warning">
+        <ion-title class="ion-text-center">LAGER</ion-title>
+    </ion-item>
+    <br>
+    <ion-title class="ion-text-start">Lager:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Lager'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Pilsner:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Pilsner'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Viena:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Viena'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <ion-item color="warning">
+        <ion-title class="ion-text-center">TRIGO</ion-title>
+    </ion-item>
+    <br>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Trigo'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <ion-item color="warning">
+        <ion-title class="ion-text-center">Sin alcohol</ion-title>
+    </ion-item>
+    <br>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.estilo === 'Sin alcohol'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../../../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../../../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../../../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

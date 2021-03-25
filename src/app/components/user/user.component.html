@@ -1,0 +1,135 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-button slot="start" fill="clear" (click)="closeChat()">
+            <ion-icon color="dark" name="close"></ion-icon>
+        </ion-button>
+        <ion-title size="large" class="ion-text-start">{{chat.displayName}}</ion-title>
+        <ion-item (click)="follow()" slot="end" color="warning">
+            <ion-icon color="dark" name="person-add"></ion-icon>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <ion-row>
+
+            <ion-col size="4" class="img-detalle-sobre">
+                <ion-card>
+                    <ion-img [src]="photoURL" class="poster"></ion-img>
+                </ion-card>
+            </ion-col>
+
+            <ion-col>
+                <ion-item *ngIf="followers?.length > 0; else noLength">
+                    <ion-icon slot="start" name="people-circle" color="warning"></ion-icon>
+                    <ion-label (click)="openFollowers(followers)" color="warning">Seguidores:</ion-label>
+                    <ion-label slot="end">{{followers.length}}</ion-label>
+                </ion-item>
+                <ion-item *ngIf="following?.length > 0; else noLength1">
+                    <ion-icon slot="start" name="people" color="warning"></ion-icon>
+                    <ion-label (click)="openFollowing(following)" color="warning">Siguiendo:</ion-label>
+                    <ion-label slot="end">{{following.length}}</ion-label>
+                </ion-item>
+            </ion-col>
+
+            <ng-template #noLength>
+                <ion-col>
+                    <ion-item>
+                        <ion-icon slot="start" name="people-circle" color="warning"></ion-icon>
+                        <ion-label color="warning">Seguidores:</ion-label>
+                        <ion-label slot="end">0</ion-label>
+                    </ion-item>
+                </ion-col>
+            </ng-template>
+
+            <ng-template #noLength1>
+                <ion-col>
+                    <ion-item>
+                        <ion-icon slot="start" name="people" color="warning"></ion-icon>
+                        <ion-label color="warning">Siguiendo:</ion-label>
+                        <ion-label slot="end">0</ion-label>
+                    </ion-item>
+                </ion-col>
+            </ng-template>
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label>{{descripcion}}</ion-label>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-row>
+
+        <ng-container *ngIf="followersUser.includes(Uid) && !chat.cerv">
+            <ion-item (click)="toggleDetails()">Ver cervezas calificadas...</ion-item>
+            <ion-card *ngIf="showDetails">
+                <ion-item color="warning" *ngFor="let cerveza of cervezaCalificada">
+                    <ion-avatar slot="start">
+                        <img [src]="cerveza.img">
+                    </ion-avatar>
+                    <ion-label>
+                        <h3>{{cerveza.nombre}}</h3>
+                        <p>{{cerveza.descripcion}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-card>
+
+            <ion-item (click)="toggleDetails1()">Ver cervezas comentadas</ion-item>
+            <ion-card *ngIf="showDetails1">
+                <ion-item color="warning" *ngFor="let cerveza of cervezaComentada">
+                    <ion-avatar slot="start">
+                        <img [src]="cerveza.img">
+                    </ion-avatar>
+                    <ion-label>
+                        <h3>{{cerveza.cerveza}}</h3>
+                        <p>{{cerveza.descripcion}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-card>
+        </ng-container>
+
+        <ion-card>
+            <br>
+            <ion-card-title class="ion-text-center">Publicaciones:</ion-card-title>
+            <br>
+        </ion-card>
+
+        <ng-container *ngFor="let publicacion of publicaciones">
+            <ion-card *ngIf="publicacion.uid === uid" color="warning">
+                <ion-chip>
+                    <ion-label>{{chat.displayName}}</ion-label>
+                </ion-chip>
+                <ion-img [src]="publicacion.imagePublicacion" style="display: block; margin: 0 auto;" color="warning"></ion-img>
+                <h2>{{displayName}}</h2>
+                <p>{{publicacion.descripcion}}</p>
+                <ion-item>
+                    <ion-label slot="start">Comentarios:
+                    </ion-label>
+                    <ion-button color="dark" slot="end" (click)="updateLike(publicacion)">
+                        {{publicacion?.likes?.length}}
+                        <ion-icon color="danger" [name]="heartType"></ion-icon>
+                    </ion-button>
+                </ion-item>
+                <ion-card *ngFor="let comentario of publicacion.messages">
+                    <ion-card-header>
+                        <ion-item>
+                            <ion-card-title>{{comentario.displayName}}</ion-card-title>
+                            <ion-card-content>{{comentario.content}}</ion-card-content>
+                        </ion-item>
+                    </ion-card-header>
+                </ion-card>
+                <ion-item>
+                    <ion-textarea placeholder="Escribir comentario..."></ion-textarea>
+                    <ion-button color="warning">
+                        <ion-icon name="send"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-card>
+        </ng-container>
+
+    </ion-grid>
+
+</ion-content>

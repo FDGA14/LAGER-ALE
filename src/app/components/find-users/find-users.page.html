@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Usuarios
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-searchbar animated="true" debounce="300" mode="ios" placeholder="Buscar usuario" [value]="textoBuscar" (ionChange)="onSearchChange($event)">
+    </ion-searchbar>
+
+    <ng-container *ngFor="let user of users | filtro1: textoBuscar">
+        <ion-card *ngIf="uid !== user.uid" mode="ios" color="warning" (click)="openUser(user)">
+            <img [src]="user.photoURL" style="display: block; margin: 0 auto;">
+            <ion-card-header>
+                <ion-card-title>{{user.displayName}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{user.descripcion | slice: 0: 100}}...
+                <ion-label color="primary"> Ver más</ion-label>
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

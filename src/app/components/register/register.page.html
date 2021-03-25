@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-title class="ion-text-center">Registro</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <img class="lagerale" src="assets/Registro.png">
+    <br>
+    <br>
+
+    <ion-item>
+        <ion-label position="floating">Nombre o nombre de usuario:</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="displayName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Correo electronico:</ion-label>
+        <ion-input type="text" name="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Contraseña:</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Confirmar contraseña:</ion-label>
+        <ion-input type="password" [(ngModel)]="cpassword" name="cpassword"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Descripción del usuario</ion-label>
+        <ion-textarea type="text" [(ngModel)]="descripcion" name="descripcion"></ion-textarea>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Peso (aproximado:)</ion-label>
+        <ion-input type="number" [(ngModel)]="peso" name="peso"></ion-input>Kg.
+    </ion-item>
+
+    <!-- 
+    <ion-item>
+        <ion-label position="floating">Peso (kg):</ion-label>
+        <ion-input type="text" name="email"></ion-input>
+    </ion-item>
+    -->
+    <br>
+    <ion-button color="warning" expand="block" (click)="onSubmitRegister()">Registrarse</ion-button>
+    <br>
+
+    <p class="ion-text-center" routerLink="/login">¿Ya tienes cuenta? Inicia sesion</p>
+
+</ion-content>
+<!-- 
+-->

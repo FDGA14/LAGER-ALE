@@ -1,0 +1,91 @@
+<div>
+    <form [formGroup]="editPostForm" (ngSubmit)="editPost(editPostForm.value)">
+
+        <ion-label>Nombre</ion-label>
+        <ion-item>
+            <ion-input placeholder="Nombre de la cerveza" formControlName="nombre"></ion-input>
+        </ion-item>
+
+        <ion-label>Descripcion</ion-label>
+        <ion-item>
+            <ion-textarea placeholder="Descripcion de la cerveza" formControlName="descripcion"></ion-textarea>
+        </ion-item>
+
+        <ion-label>Elaboración:</ion-label>
+        <ion-item>
+            <ion-textarea placeholder="Elaboración de la cerveza" formControlName="elaboracion"></ion-textarea>
+        </ion-item>
+
+        <ion-label>Fermentación:</ion-label>
+        <ion-item>
+            <select formControlName="fermentacion">
+                <option value="Fermentación Alta">Fermentación Alta</option>
+                <option value="Fermentación Baja">Fermentación Baja</option>
+                <option value="Fermentación Espontánea">Fermentación Espontánea</option>
+        </select>
+        </ion-item>
+
+        <ion-label>Granos:</ion-label>
+        <ion-item>
+            <ion-input placeholder="Granos de la cerveza" formControlName="granos"></ion-input>
+        </ion-item>
+
+        <ion-label>Tipo:</ion-label>
+        <ion-item>
+            <select formControlName="tipo">
+                <option value="Industrial">Industrial</option>
+                <option value="Artesanal">Artesanal</option>
+        </select>
+        </ion-item>
+
+        <ion-label>Estilo</ion-label>
+        <ion-item>
+            <select formControlName="estilo">
+                <option value="Amber Ale">Amber Ale</option>
+                <option value="Lager">Lager Clara</option>
+                <option value="IPA">IPA</option>
+                <option value="Pilsner">Pilsner</option>
+                <option value="Porter">Porter</option>
+                <option value="Sin alcohol">Sin alcohol</option>
+                <option value="Stout">Stout</option>
+                <option value="Trigo">Trigo</option>
+                <option value="Viena">Viena</option>
+        </select>
+        </ion-item>
+
+
+        <ion-label>País</ion-label>
+        <ion-item>
+            <select formControlName="pais">
+                <option value="Alemania">Alemania</option>
+                <option value="Bélgica">Bélgica</option>
+                <option value="Estados Unidos">Estados Unidos</option>
+                <option value="Irlanda">Irlanda</option>
+                <option value="México">México</option>
+        </select>
+        </ion-item>
+
+        <ion-label>Porcentaje de alcohol</ion-label>
+        <ion-item>
+            <ion-input type="number" placeholder="% de alcohol en la cerveza" formControlName="porcentaje"></ion-input>%
+        </ion-item>
+
+        <ion-label>Volumen</ion-label>
+        <ion-item>
+            <ion-input type="number" placeholder="Volumen de la cerveza" formControlName="volumen"></ion-input>ml.
+        </ion-item>
+
+        <ion-label>Precio</ion-label>
+        <ion-item>
+            <ion-input type="number" placeholder="Precio recomendado" formControlName="precio"></ion-input>$
+        </ion-item>
+
+        <ion-label>Imagen (obligatoria)</ion-label>
+        <ion-item>
+            <ion-input expand="block" type="file" formControlName="img" (change)="handleImage($event)"></ion-input>
+        </ion-item>
+        <div>
+            <ion-button expand="block" color="warning" type="submit" mat-dialog-close="true">GUARDAR</ion-button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Cervezas escaneadas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ng-container *ngFor="let user of users">
+        <ng-container *ngIf="user.uid === uid" color="warning">
+            <ion-card mode="ios" *ngFor="let scan of user.scans" color="warning">
+                <ion-fab horizontal="end">
+                    <ion-fab-button color="light">
+                        <ion-icon name="options-sharp"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-list side="bottom">
+                        <ion-fab-button color="danger" (click)="deleteScan(scan)">
+                            <ion-icon name="trash"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab-list>
+                </ion-fab>
+                <br>
+                <ion-card-subtitle class="ion-text-center">Resultado de la captura de la cerveza:</ion-card-subtitle>
+                <br>
+                <ion-img [src]="scan.img" style="display: block; margin: 0 auto;"></ion-img>
+                <ion-card-header>
+                    <ion-card-title class="ion-text-center">{{scan.resultado}}</ion-card-title>
+                </ion-card-header>
+            </ion-card>
+        </ng-container>
+    </ng-container>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

@@ -1,0 +1,185 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Lager & Ale
+        </ion-title>
+        <ng-container *ngIf="userInfo?.cerv">
+            <ion-button (click)="showCerveceriaAlert()" slot="end" color="warning">
+                <ion-icon name="beer"></ion-icon>
+            </ion-button>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <ion-searchbar placeholder="Buscar cerveza" (ionChange)="onSearchChange($event)" [debounce]="700" [value]="cervezaApiFinal">
+    </ion-searchbar>
+
+    <ion-item>
+        <ion-label>Ordenar por precio:</ion-label>
+        <ion-select interface="popover" [(ngModel)]="filtroPrecio">
+            <ion-select-option value="precio0">Todas</ion-select-option>
+            <ion-select-option value="precio1">$10 - $29</ion-select-option>
+            <ion-select-option value="precio2">$30 - $49</ion-select-option>
+            <ion-select-option value="precio3">$50 - $79</ion-select-option>
+            <ion-select-option value="precio4">$80 - $100</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <div class="list-divider">
+        <span>Las más buscadas</span>
+    </div>
+    <!--
+    <ion-list mode="ios">
+        <ng-container *ngFor="let item of recentSearches">
+            <ion-item (click)="recentSearch(item)">
+                <ion-label>{{ item }}</ion-label>
+                <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+-->
+    <ion-list mode="ios">
+        <ng-container *ngFor="let item of arraySearchs | slice:0:3; let i=index">
+            <ng-container *ngIf="item?.search">
+                <ion-item (click)="recentSearch(item.nombre)">
+                    <ion-label>{{ item.nombre }}</ion-label>
+                    <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+                </ion-item>
+            </ng-container>
+        </ng-container>
+    </ion-list>
+    <!--
+    <ion-card *ngFor="let item of items">
+        <img [src]="'data:image/png;base64,' + item.imageData"/>
+        <img [src]="image" *ngIf="image" />
+        <ion-card-content>
+            <ion-list no-lines>
+                <ion-list-header>Labels</ion-list-header>
+                <ion-item *ngFor="let label of item.results[0].textAnnotations">{{label.description}}</ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+-->
+    <!--
+    <ion-img [src]="image"></ion-img>
+    <ion-button expand="full" (click)="captureImage()">Capturar imagen</ion-button>
+    <ion-button expand="full" [disabled]="!workerReady" (click)="recognizeImage()">Reconocer imagen</ion-button>
+    <ion-card *ngIf="workerReady && captureProgress > 0">
+        <ion-card-header>
+        </ion-card-header>
+        <ion-card-content>
+            {{orcResult}}
+        </ion-card-content>
+    </ion-card>
+-->
+
+    <ng-container *ngFor="let cerveza of cervezas | filtro: textoBuscar">
+        <ion-card *ngIf="filtroPrecio === 'precio0'" mode="ios" color="warning" (click)="openCerveza(cerveza)">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+                <ion-card-subtitle>Precio recomendado: ${{cerveza.precio}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                {{cerveza.descripcion | slice: 0: 100}}...
+                <ion-label color="primary"> Leer más</ion-label>
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+
+    <ng-container *ngIf="filtroPrecio === 'precio1'">
+        <ng-container *ngFor="let cerveza of cervezas | filtro: textoBuscar">
+            <ion-card *ngIf="cerveza.precio >= 10 && cerveza.precio <= 29" mode="ios" color="warning" (click)="openCerveza(cerveza)">
+                <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+                <ion-card-header>
+                    <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                    <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+                    <ion-card-subtitle>Precio recomendado: ${{cerveza.precio}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    {{cerveza.descripcion | slice: 0: 100}}...
+                    <ion-label color="primary"> Leer más</ion-label>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="filtroPrecio === 'precio2'">
+        <ng-container *ngFor="let cerveza of cervezas | filtro: textoBuscar">
+            <ion-card *ngIf="cerveza.precio >= 30  && cerveza.precio <= 49" mode="ios" color="warning" (click)="openCerveza(cerveza)">
+                <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+                <ion-card-header>
+                    <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                    <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+                    <ion-card-subtitle>Precio recomendado: ${{cerveza.precio}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    {{cerveza.descripcion | slice: 0: 100}}...
+                    <ion-label color="primary"> Leer más</ion-label>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="filtroPrecio === 'precio3'">
+        <ng-container *ngFor="let cerveza of cervezas | filtro: textoBuscar">
+            <ion-card *ngIf="cerveza.precio >= 50  && cerveza.precio <= 79" mode="ios" color="warning" (click)="openCerveza(cerveza)">
+                <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+                <ion-card-header>
+                    <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                    <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+                    <ion-card-subtitle>Precio recomendado: ${{cerveza.precio}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    {{cerveza.descripcion | slice: 0: 100}}...
+                    <ion-label color="primary"> Leer más</ion-label>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="filtroPrecio === 'precio4'">
+        <ng-container *ngFor="let cerveza of cervezas | filtro: textoBuscar">
+            <ion-card *ngIf="cerveza.precio >= 80  && cerveza.precio <= 100" mode="ios" color="warning" (click)="openCerveza(cerveza)">
+                <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+                <ion-card-header>
+                    <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                    <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+                    <ion-card-subtitle>Precio recomendado: ${{cerveza.precio}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    {{cerveza.descripcion | slice: 0: 100}}...
+                    <ion-label color="primary"> Leer más</ion-label>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ng-container>
+
+    <ion-fab *ngIf="filtroPrecio === 'precio0'" horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="warning">
+            <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="start">
+            <ion-fab-button color="light" (click)="selectPhoto()">
+                <ion-icon name="albums"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" (click)="takePhoto()">
+                <ion-icon name="camera"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
+</ion-content>
+
+<!--List Post para dominicode-->

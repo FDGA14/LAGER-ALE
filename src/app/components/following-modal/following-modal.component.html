@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-button slot="start" fill="clear" (click)="closeChat()">
+            <ion-icon name="close" color="dark"></ion-icon>
+        </ion-button>
+        <ion-title class="ion-text-start">Siguiendo:</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card mode="ios" color="warning" *ngFor="let array of following">
+        <img [src]="array.photoURL" style="display: block; margin: 0 auto;">
+        <ion-card-header>
+            <ion-card-title>{{array.displayName}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            {{array.descripcion}}
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,309 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-button slot="start" fill="clear" (click)="closeChat()">
+            <ion-icon name="close" color="dark"></ion-icon>
+        </ion-button>
+        <ion-title class="ion-text-start">{{nombre}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-fab *ngIf="guest !== null && !userInfo?.cerv" horizontal="end" vertical="top" slot="fixed">
+        <ion-fab-button color="warning">
+            <ion-icon name="information"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list>
+            <ion-fab-button (click)="sendFavoritas()" color="light">
+                <ion-icon name="heart"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="sendWishlist()" color="light">
+                <ion-icon name="bookmark"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="updateStars()" color="light">
+                <ion-icon name="star"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="reportCerveza()" color="danger">
+                <ion-icon name="alert"></ion-icon>
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+
+    <ion-card color="warning">
+        <ion-header>
+            <ion-img [src]="img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+        </ion-header>
+        <ion-card-content>
+            <ion-label>{{descripcion}}</ion-label>
+        </ion-card-content>
+    </ion-card>
+
+    <br>
+    <ion-title class="ion-text-center">Artesanal</ion-title>
+    <br>
+    <ion-item>
+        <ion-icon slot="start" name="cash-outline" color="warning"></ion-icon>
+        <ion-label color="warning">Precio:</ion-label>
+        <ion-label slot="end">${{precio}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon slot="start" name="water" color="warning"></ion-icon>
+        <ion-label color="warning">Volumen:</ion-label>
+        <ion-label slot="end">{{volumen}} ml.</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon slot="start" name="leaf-sharp" color="warning"></ion-icon>
+        <ion-label color="warning">Estilo:</ion-label>
+        <ion-label slot="end">{{estilo}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+        <ion-label color="warning">Cervecería:</ion-label>
+        <ion-label slot="end">{{cerveceria}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon slot="start" name="flag" color="warning"></ion-icon>
+        <ion-label color="warning">País:</ion-label>
+        <ion-label slot="end">{{pais}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-icon slot="start" name="star" color="warning"></ion-icon>
+        <ion-label color="warning">Estrellas:</ion-label>
+        <ion-label>{{avg}}</ion-label>
+    </ion-item>
+
+    <!--- <ion-img [src]="img" style="width: 280px; height: 280px;"></ion-img> -->
+    <!-- <ion-img [src]="cervimg" style="width: 1000; height: 450;"></ion-img> -->
+    <!--
+    <ion-grid>
+        <ion-row>
+
+            <ion-col size="4" class="img-detalle-sobre">
+                
+            </ion-col>
+
+            <ion-col>
+                <ion-item>
+                    <ion-icon slot="start" name="cash-outline" color="warning"></ion-icon>
+                    <ion-label color="warning">Precio:</ion-label>
+                    <ion-label slot="end">${{precio}}</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon slot="start" name="water" color="warning"></ion-icon>
+                    <ion-label color="warning">Volumen:</ion-label>
+                    <ion-label slot="end">{{volumen}} ml.</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon slot="start" name="leaf-sharp" color="warning"></ion-icon>
+                    <ion-label color="warning">Estilo:</ion-label>
+                    <ion-label slot="end">{{estilo}}</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon slot="start" name="star" color="warning"></ion-icon>
+                    <ion-label color="warning">Estrellas:</ion-label>
+                    <ion-label>{{avg}}</ion-label>
+                </ion-item>
+                 <ion-item>
+                    <ion-icon slot="start" name="cash-outline" color="warning"></ion-icon>
+                    <ion-label color="warning">Precio:</ion-label>
+                    <ion-label>{{precio}}</ion-label>
+                </ion-item> 
+            </ion-col>
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label>{{descripcion}}</ion-label>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-row>
+    -->
+    <ion-card class="transparent-card">
+        <ion-card-header color="warning">
+            <ion-card-title class="ion-text-center">Puntos de venta de la cerveza:</ion-card-title>
+        </ion-card-header>
+        <div #map id="gmap" style="height:400px;"></div>
+        <ion-card-content color="warning" type="button" (click)="toggleDetails()">
+            <ion-card-subtitle class="ion-text-center">Mostrar direcciones</ion-card-subtitle>
+            <ng-container *ngFor="let store of room?.stores">
+                <ng-container *ngIf="showDetails">
+                    <ion-label class="ion-text-center">{{store.store}}</ion-label>
+                    <br>
+                    <ion-text>{{store.location}}</ion-text>
+                    <ion-item></ion-item>
+                </ng-container>
+            </ng-container>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header color="warning">
+            <ion-card-title class="ion-text-center">Color</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-text slot="start">Clara</ion-text>
+            <ion-text slot="end">Obscura</ion-text>
+        </ion-item>
+        <ion-range *ngIf="userInfo.avanzado && !userInfo.cerv; else temRan1" [(ngModel)]="rangeVal1" min="0" max="10" id="rangeVal1" pin color="dark">
+            <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+            <ion-icon slot="end" name="beer"></ion-icon>
+        </ion-range>
+        <ng-template #temRan1>
+            <ion-range [(ngModel)]="rangeVal1" disabled="true" min="0" max="10" id="rangeVal1" pin color="dark">
+                <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+                <ion-icon slot="end" name="beer"></ion-icon>
+            </ion-range>
+        </ng-template>
+        <!--<h2>Range Value: {{rangeVal1}} </h2>-->
+        <ng-container *ngIf="guest !== null">
+            <ion-button *ngIf="userInfo.avanzado && !userInfo.cerv" color="dark" expand="block" (click)="updateRange1()">Guardar</ion-button>
+        </ng-container>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header color="warning">
+            <ion-card-title class="ion-text-center">Notas de sabor</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-text slot="start">Citrica</ion-text>
+            <ion-text slot="end">Café</ion-text>
+        </ion-item>
+        <ion-range *ngIf="userInfo.avanzado && !userInfo.cerv; else temRan2" [(ngModel)]="rangeVal2" min="0" max="10" id="rangeVal2" pin color="dark">
+            <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+            <ion-icon slot="end" name="beer"></ion-icon>
+        </ion-range>
+        <ng-template #temRan2>
+            <ion-range [(ngModel)]="rangeVal2" disabled="true" min="0" max="10" id="rangeVal2" pin color="dark">
+                <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+                <ion-icon slot="end" name="beer"></ion-icon>
+            </ion-range>
+        </ng-template>
+        <!--<h2>Range Value: {{rangeVal2}} </h2>-->
+        <ng-container *ngIf="guest !== null">
+            <ion-button *ngIf="userInfo.avanzado && !userInfo.cerv" color="dark" expand="block" (click)="updateRange2()">Guardar</ion-button>
+        </ng-container>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header color="warning">
+            <ion-card-title class="ion-text-center">Amargor</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-text slot="start">Poco</ion-text>
+            <ion-text slot="end">Mucho</ion-text>
+        </ion-item>
+        <ion-range *ngIf="userInfo.avanzado && !userInfo.cerv; else temRan3" [(ngModel)]="rangeVal3" min="0" max="10" id="rangeVal3" pin color="dark">
+            <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+            <ion-icon slot="end" name="beer"></ion-icon>
+        </ion-range>
+        <ng-template #temRan3>
+            <ion-range [(ngModel)]="rangeVal3" disabled="true" min="0" max="10" id="rangeVal3" pin color="dark">
+                <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+                <ion-icon slot="end" name="beer"></ion-icon>
+            </ion-range>
+        </ng-template>
+        <!--<h2>Range Value: {{rangeVal3}} </h2>-->
+        <ng-container *ngIf="guest !== null">
+            <ion-button *ngIf="userInfo.avanzado && !userInfo.cerv" color="dark" expand="block" (click)="updateRange3()">Guardar</ion-button>
+        </ng-container>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header color="warning">
+            <ion-card-title class="ion-text-center">Valoración (Sabor - Precio)</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-text slot="start">Recomendada</ion-text>
+            <ion-text slot="end">No recomendada</ion-text>
+        </ion-item>
+        <ion-range *ngIf="userInfo.avanzado && !userInfo.cerv; else temRan2" [(ngModel)]="rangeVal4" min="0" max="10" id="rangeVal4" pin color="dark">
+            <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+            <ion-icon slot="end" name="beer"></ion-icon>
+        </ion-range>
+        <ng-template #temRan2>
+            <ion-range [(ngModel)]="rangeVal4" disabled="true" min="0" max="10" id="rangeVal4" pin color="dark">
+                <ion-icon slot="start" name="beer" color="warning"></ion-icon>
+                <ion-icon slot="end" name="beer"></ion-icon>
+            </ion-range>
+        </ng-template>
+        <!--<h2>Range Value: {{rangeVal2}} </h2>-->
+        <ng-container *ngIf="guest !== null">
+            <ion-button *ngIf="userInfo.avanzado && !userInfo.cerv" color="dark" expand="block" (click)="updateRange4()">Guardar</ion-button>
+        </ng-container>
+    </ion-card>
+
+    <ng-template #template1>
+        <!--<ion-card *ngIf="guest !== null">
+            <ion-card-title class="ion-text-center">Calificar cerveza (1 - 5)
+                <ion-icon name="star"></ion-icon>
+            </ion-card-title>
+            <ion-input type="number" placeholder="Minimo 1 maximo 5" id="cal" [(ngModel)]="cal"></ion-input>
+            <ion-button color="dark" expand="block" (click)="updateStars()">Calificar</ion-button>
+        </ion-card>-->
+    </ng-template>
+
+    <ng-container *ngIf="userInfo.cerv; else template1">
+        <ion-item>
+            <h2>Los usuarios cerveceria no pueden calificar las cervezas</h2>
+        </ion-item>
+    </ng-container>
+
+    <ion-item color="warning">
+        <ion-label>Comentarios: </ion-label>
+    </ion-item>
+
+    <div *ngIf="room">
+        <ion-card *ngFor="let comentario of room.messages">
+
+            <ng-container *ngIf="comentario.avanzado === true; else userStandar">
+                <ion-card-header>
+                    <ion-item>
+                        <ion-card-title>{{comentario.displayName}}</ion-card-title>
+                        <ion-icon color="warning" slot="start" size="small" name="star"></ion-icon>
+                        <ion-icon color="danger" slot="end" size="small" name="heart" (click)="updateLike(comentario)"></ion-icon>
+                        <ion-icon *ngIf="comentario.UID === Cerveceria" color="danger" slot="end" size="small" name="trash" (click)="deleteComentario(comentario)"></ion-icon>
+                    </ion-item>
+                </ion-card-header>
+            </ng-container>
+
+            <ng-template #userStandar>
+                <ion-card-header>
+                    <ion-button expand="block" *ngIf="comentario.UID === Cerveceria" (click)="deleteComentario(comentario)" color="dark">
+                        <ion-icon color="warning" slot="end" name="trash" size="small"></ion-icon>
+                    </ion-button>
+                    <ion-item>
+                        <ion-card-title>{{comentario.displayName}}</ion-card-title>
+                        <ion-icon color="danger" slot="end" size="small" name="heart" (click)="updateLike(comentario)"></ion-icon>
+                    </ion-item>
+                </ion-card-header>
+            </ng-template>
+
+
+            <ion-card-content>{{comentario.content}}</ion-card-content>
+        </ion-card>
+    </div>
+
+    <ng-template #template>
+        <ion-item *ngIf="guest !== null">
+            <ion-textarea placeholder="Escribir comentario..." [(ngModel)]="msg"></ion-textarea>
+            <ion-button size="small" slot="end" color="warning" (click)="sendComentada(chat)" (click)="sendComentario()">
+                <ion-icon name="send"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ng-template>
+
+    <ng-container *ngIf="userInfo.cerv; else template">
+        <ion-item>
+            <h2>Los usuarios cerveceria no pueden realizar comentarios en las cervezas</h2>
+        </ion-item>
+    </ng-container>
+    <!-- <ion-item>
+        <ion-button slot="end" color="warning">Comentar</ion-button>
+        <ion-textarea color="warning"></ion-textarea>
+    </ion-item>
+-->
+
+
+</ion-content>
+<!---->

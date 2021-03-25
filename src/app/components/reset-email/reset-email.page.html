@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+        <ion-title class="ion-text-center">Cambio de email</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <br>
+    <br>
+    <br>
+    <img class="lagerale" src="assets/LagerAle.png">
+    <br>
+    <br>
+    <form class="ion-padding-top" (submit)="sendLinkReset()">
+
+        <div class="ion-text-center">
+            <h2>Ingresar el nuevo correo</h2>
+        </div>
+        <ion-label>Correo actual</ion-label>
+        <ion-item>
+            <ion-input disabled="true">{{email}}</ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+            <ion-input placeHolder="Nuevo correo electrónico" type="email" [(ngModel)]="emailNew" name="emailNew"></ion-input>
+        </ion-item>
+        <br>
+        <ion-button color="warning" expand="block" (click)="sendLinkReset()">Recuperar</ion-button>
+
+    </form>
+
+</ion-content>

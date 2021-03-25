@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Lager & Ale
+        </ion-title>
+        <ng-container *ngIf="guest !== null">
+            <ion-title slot="end" routerLink="/profile">
+                Mi perfil
+            </ion-title>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+    <ng-container *ngIf="guest !== null; else Guest">
+
+        <ion-item class="ion-text-center" routerLink="/list-publicaciones" color="warning">Publicaciones
+            <ion-icon name="create"></ion-icon>
+        </ion-item>
+        <ion-item class="text-center" color="warning" routerLink="/find-users">Buscar usuarios
+            <ion-icon name="search-sharp"></ion-icon>
+        </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="nregistros?.length > 0; else template">
+        <ng-container *ngFor="let Publicacion of Publicaciones">
+            <ion-card *ngIf="nregistros.includes(Publicacion.uid)" color="warning">
+                <ion-chip>
+                    <ion-label>{{Publicacion.user}}</ion-label>
+                </ion-chip>
+
+                <ion-img [src]="Publicacion.imagePublicacion" color="warning" style="display: block; margin: 0 auto;"></ion-img>
+                <h2>{{Publicacion.user}} </h2>
+                <p>{{Publicacion.descripcion}}</p>
+                <ion-item>
+                    <ion-label (click)="openPublicacion(Publicacion)">Ver publicación...</ion-label>
+                </ion-item>
+            </ion-card>
+        </ng-container>
+
+        <ng-template #Guest>
+            <ion-card>
+                <ion-img src="../assets/Error.jpg"></ion-img>
+                <ion-card-title>Error</ion-card-title>
+                <ion-card-content>Solo los usuarios con cuenta pueden acceder a este modulo</ion-card-content>
+            </ion-card>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #template>
+        <ion-card color="warning">
+            <br>
+            <ion-card-title class="ion-text-center">Bienvendo al modulo social</ion-card-title>
+            <br>
+            <ion-img src="../assets/cervezas.jpg"></ion-img>
+            <ion-card-content>
+                En este modulo podrás buscar y seguir a tus amigos, podrás ver las publicaciones de tus amigos o seguidores, y podras reaccianar a estas, ya sea con un like o con un comentario a la publicacion de tu amigo.
+                <br>
+                <br> IMPORTANTE SEGUIR A TUS AMIGOS PARA PODER VER SUS PUBLICACIONES.
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
+
+</ion-content>

@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Perfil</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngFor="let user of users">
+        <ion-card *ngIf="user.uid === uid" color="warning">
+            <ion-button color="black" (click)="onEditUser(user)" expand="block">Editar
+                <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-img [src]="user.photoURL" style="display: block; margin: 0 auto;"></ion-img>
+            <ion-card-title>Nombre de usuario:</ion-card-title>
+            <ion-item>{{user.displayName}}</ion-item>
+            <ion-card-title>Descripción del usuario:</ion-card-title>
+            <ion-item>{{user.descripcion}}</ion-item>
+            <ion-card-title>Redes sociales:</ion-card-title>
+            <ion-item>
+                <ion-button color="primary" (click)="SendFacebook()">Facebook
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </ion-button>
+                <ion-button color="dark" (click)="SendInstagram()">Instagram
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </ion-button>
+                <ion-button color="primary" (click)="SendTwitter()">Twitter
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </ion-button>
+            </ion-item>
+            <!--<ion-card-title>Email:</ion-card-title>
+            <ion-item>{{emailAuth}}
+                <ion-label color="primary" slot="end" routerLink="/reset-email">Editar email...</ion-label>
+            </ion-item>-->
+            <ion-card-title>Contraseña:</ion-card-title>
+            <ion-item>
+                <ion-label color="primary" (click)="onEditPassword(user)">Editar contraseña...</ion-label>
+            </ion-item>
+            <ng-container *ngIf="user?.peso">
+                <ion-card-title>Peso:</ion-card-title>
+                <ion-item>{{user?.peso}}</ion-item>
+            </ng-container>
+            <ion-card-title>Seguidores:</ion-card-title>
+            <ion-item *ngIf="user.followers?.length > 0; else noFollowers">{{user.followers.length}}
+                <ion-label color="primary" slot="end" routerLink="/followers">Seguidores...</ion-label>
+            </ion-item>
+            <ng-template #noFollowers>
+                <ion-item>0</ion-item>
+            </ng-template>
+            <ion-card-title>Siguiendo:</ion-card-title>
+            <ion-item *ngIf="user.following?.length > 0; else noFollowing">{{user.following.length}}
+                <ion-label color="primary" slot="end" routerLink="/following">Siguiendo...</ion-label>
+            </ion-item>
+            <ng-template #noFollowing>
+                <ion-item>0</ion-item>
+            </ng-template>
+            <ng-container *ngIf="user?.cerv !== true && user.cerv !== true">
+                <ion-card-title>Cervezas calificadas:</ion-card-title>
+                <ion-item class="ion-text-center">{{user.cervCal?.length}}
+                    <!-- Eliminar cervezas comentadas y sustituis por cervezas calificadas-->
+                    <ion-label color="primary" slot="end" routerLink="/comentadas">Ver cervezas...</ion-label>
+                </ion-item>
+            </ng-container>
+            <ng-template #noLikes>
+                <ion-item>0</ion-item>
+            </ng-template>
+            <ion-button color="warning" expand="block" routerLink="/wishlist" *ngIf="user.wishlist?.length > 0 && user?.cerv !== true; else noLength">WISHLIST ({{user.wishlist.length}})</ion-button>
+            <ng-template #noLength>
+                <ion-button color="warning" expand="block" routerLink="/wishlist">WISHLIST (0)</ion-button>
+            </ng-template>
+        </ion-card>
+    </ng-container>
+    <!--
+    <form (ngSubmit)="onSaveUser(profileForm.value)" [formGroup]="profileForm">
+
+        <ion-card>
+            <ion-img [src]="currentImage" (click)="inputImageProfile" style="width: 280px; height: 280px; display: block;
+            margin: 0 auto;"></ion-img>
+            <br>
+            <ion-input type="file" #inputImageProfile formControlName="photoURL" (change)="handleImage($event)">
+                <p>Cambiar Imagen</p>
+            </ion-input>
+
+            <ion-card-title>Nombre de usuario:</ion-card-title>
+            <ion-input placeholder="Name" formControlName="displayName"></ion-input>
+            <br>
+
+            <ion-card-title>Email:</ion-card-title>
+            <ion-input placeholder="email" formControlName="email"></ion-input>
+
+            <div>
+                <ion-input type="submit">
+                    <ion-button color="warning" (click)="onSaveUser(profileForm.value)">Guardar</ion-button>
+                </ion-input>
+            </div>
+        </ion-card>
+    </form>
+-->
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

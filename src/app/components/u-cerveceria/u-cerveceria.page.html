@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Cervecería</ion-title>
+        <ion-title slot="end">
+            Lager & Ale
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ng-container>
+        <ion-item href="/list-products">Modificar, agrgar o eliminar cervezas subidas</ion-item>
+    </ng-container>
+
+    <ng-template #template>
+        <ion-card>
+            <ion-img src="assets/Error.jpg"></ion-img>
+            <ion-card-title>Error</ion-card-title>
+            <ion-card-content>Solo los usuarios Cerveceria pueden acceder a esta opción</ion-card-content>
+        </ion-card>
+    </ng-template>
+
+</ion-content>
+
+<ion-tabs>
+
+    <ion-tab-bar slot="bottom" color="warning">
+        <ion-tab-button href="tabs/tab1">
+            <ion-icon name="beer"></ion-icon>
+            <ion-label>% de Alcohol</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button href="tabs/tab2">
+            <ion-icon name="search-sharp"></ion-icon>
+            <ion-label>Búsqueda</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button href="tabs/tab3">
+            <ion-icon name="person-add-outline"></ion-icon>
+            <ion-label>Social</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+
+</ion-tabs>

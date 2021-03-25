@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Artesanales/Industriales/Extranjeras</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <br>
+    <ion-title class="ion-text-start">Artesanales:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.cerveceria === 'Anima de Sayula'|| cerveza.cerveceria === 'Cervecería de Colima'|| cerveza.cerveceria === 'Minerva' ||cerveza.cerveceria === 'Cucapá'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Industriales:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card (click)="openCerveza(cerveza)" mode="ios" *ngIf="cerveza.cerveceria === 'Modelo'||cerveza.cerveceria === 'Corona'" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+    <br>
+    <ion-title class="ion-text-start">Extranjeras:</ion-title>
+    <ng-container *ngFor="let cerveza of cervezas">
+        <ion-card *ngIf="cerveza.cerveceria === 'Erdinger'|| cerveza.cerveceria === 'Guinness' || cerveza.cerveceria === 'Stella Artois'" (click)="openCerveza(cerveza)" mode="ios" color="warning">
+            <ion-img [src]="cerveza.img" style="width: 280px; height: 280px; display: block; margin: 0 auto;"></ion-img>
+            <ion-card-header>
+                <ion-card-title>{{cerveza.nombre}}</ion-card-title>
+                <ion-card-subtitle>{{cerveza.cerveceria}}</ion-card-subtitle>
+                <ion-card-subtitle>{{cerveza.estilo}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </ng-container>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../../../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../../../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../../../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

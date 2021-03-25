@@ -1,0 +1,248 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="title-ios" text-center>Picture</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <img [src]="'data:image/jpeg;base64,'+this.image" class="picture" />
+
+    <ion-list *ngIf="(this.feature.value == 'TEXT_DETECTION' || this.feature.value == 'DOCUMENT_TEXT_DETECTION') && this.result ">
+        <ion-item>
+            <ion-label>I think this image contains following text:</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label>Text </ion-label>{{this.result[0].description}}</ion-item>
+    </ion-list>
+    <ion-list *ngIf="!this.result">
+        <ion-item lines="none">
+            <ion-label text-center>Didn't found any related data</ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="(this.feature.value == 'FACE_DETECTION') && (this.result[0].faceAnnotations)">
+        <ion-item lines="none">
+            <ion-label class="ion-text-wrap">According to me, facial expressions in this picture are as follows:</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Anger Likelihood</ion-label>{{this.result[0].faceAnnotations[0].angerLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Blurred Likelihood</ion-label>{{this.result[0].faceAnnotations[0].blurredLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Headwear Likelihood</ion-label>{{this.result[0].faceAnnotations[0].headwearLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Joy Likelihood</ion-label>{{this.result[0].faceAnnotations[0].joyLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Sorrow Likelihood</ion-label>{{this.result[0].faceAnnotations[0].sorrowLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Surprise Likelihood</ion-label>{{this.result[0].faceAnnotations[0].surpriseLikelihood}}</ion-item>
+        <ion-item>
+            <ion-label>Under Exposed Likelihood</ion-label>{{this.result[0].faceAnnotations[0].underExposedLikelihood}}</ion-item>
+        <ion-item lines="none">
+            <div class="itemSection">I can say this with
+                <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{this.result[0].faceAnnotations[0].detectionConfidence * 100| number:'.2-2'}} %</p>confidence</div>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="(this.feature.value == 'FACE_DETECTION') && (!this.result[0].faceAnnotations)">
+        <ion-item lines="none">
+            <ion-label text-center>Didn't found any face</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-grid>
+        <ion-row *ngIf="this.feature.value != 'FACE_DETECTION'">
+            <ion-col size="12" *ngFor="let item of this.result">
+                <ion-list *ngIf="this.feature.value == 'LABEL_DETECTION' && item.description">
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>You are looking at a / an</ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>
+                            <div class="ion-text-uppercase">
+                                <p style="font-weight: bold; font-size: 20px; color: black;" absolute-drag>{{item.description}}</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description">
+                        <div class="itemSection">I can say this with
+                            <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.score * 100| number:'.2-2'}} %</p>confidence</div>
+                    </ion-item>
+                    <ion-item lines="full" *ngIf="this.result[1] && item.description == this.result[1].description">
+                        <ion-label text-center>
+                            <div>
+                                <p style="font-weight: bold; font-size: 15px;" absolute-drag>Here are some of my other predictions:</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.result[1] && item.description == this.result[1].description"></ion-item>
+                    <ion-item *ngIf="item.description != this.result[0].description">
+                        <ion-label>Label</ion-label>{{item.description}}</ion-item>
+                    <ion-item lines="none" *ngIf="item.description != this.result[0].description">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+
+                <ion-list *ngIf="this.feature.value == 'CROP_HINTS'">
+                    <ion-item lines="none" class="ion-text-wrap">
+                        <ion-text>I think important crop fraction for this picture is : <b>{{item.importanceFraction}}</b></ion-text>
+                    </ion-item>
+                    <ion-item lines="none">I can say this with
+                        <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.confidence * 100| number:'.2-2'}} %</p>confidence
+                    </ion-item>
+                </ion-list>
+
+
+
+                <ion-list *ngIf="this.feature.value == 'IMAGE_PROPERTIES'">
+                    <ion-item lines="none" *ngIf="item.color.red == this.result[0].color.red && item.color.green == this.result[0].color.green && item.color.blue == this.result[0].color.blue" text-center>
+                        <ion-label>This image contain major color (RGB)</ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.color.red == this.result[0].color.red && item.color.green == this.result[0].color.green && item.color.blue == this.result[0].color.blue" text-center>
+                        <ion-label>
+                            <div>
+                                <p style="font-weight: bold; font-size: 20px; color: black;" absolute-drag>({{item.color.red}},{{item.color.green}},{{item.color.blue}})</p>
+                            </div>
+                            <br/>having Pixel fraction <b>{{item.pixelFraction | number:'.2-2'}}</b>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.color.red == this.result[0].color.red && item.color.green == this.result[0].color.green && item.color.blue == this.result[0].color.blue">
+                        <div class="itemSection">I can say this with
+                            <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.score * 100| number:'.2-2'}} %</p>confidence</div>
+                    </ion-item>
+                    <ion-item lines="full" *ngIf="this.result[1] && item.color.red == this.result[1].color.red && item.color.green == this.result[1].color.green && item.color.blue == this.result[1].color.blue">
+                        <ion-label text-center>
+                            <div>
+                                <p style="font-weight: bold; font-size: 15px;" absolute-drag>Here are some of my other predictions:</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.result[1] && item.color.red == this.result[1].color.red && item.color.green == this.result[1].color.green && item.color.blue == this.result[1].color.blue"></ion-item>
+                    <ion-item *ngIf="(item.color.red != this.result[0].color.red) && (item.color.green != this.result[0].color.green) && (item.color.blue != this.result[0].color.blue)">
+                        <ion-label>Color(RGB)</ion-label>({{item.color.red}},{{item.color.green}},{{item.color.blue}})</ion-item>
+                    <ion-item lines="none" *ngIf="(item.color.red != this.result[0].color.red) && (item.color.green != this.result[0].color.green) && (item.color.blue != this.result[0].color.blue)">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+
+                <ion-list *ngIf="this.feature.value == 'SAFE_SEARCH_DETECTION'">
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-wrap">According to me, safe search detections in this picture are as follows:</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Adult</ion-label>{{item.safeSearchAnnotation.adult}}</ion-item>
+                    <ion-item>
+                        <ion-label>Medical</ion-label>{{item.safeSearchAnnotation.medical}}</ion-item>
+                    <ion-item>
+                        <ion-label>Spoof</ion-label>{{item.safeSearchAnnotation.spoof}}</ion-item>
+                    <ion-item>
+                        <ion-label>Violence</ion-label>{{item.safeSearchAnnotation.violence}}</ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Racy</ion-label>{{item.safeSearchAnnotation.racy}}</ion-item>
+                </ion-list>
+
+
+                <ion-list *ngIf="this.feature.value == 'OBJECT_LOCALIZATION' && item.name">
+                    <ion-item lines="none" *ngIf="item.name == this.result[0].name">
+                        <ion-label class="ion-text-wrap">According to me, Objects present in this picture are as follows:</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Object</ion-label>{{item.name}}</ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+
+
+                <ion-list *ngIf="this.feature.value == 'LANDMARK_DETECTION' && item.description">
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>You are looking at a / an</ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>
+                            <div class="ion-text-uppercase">
+                                <p style="font-weight: bold; font-size: 20px; color: black;" absolute-drag>{{item.description}}</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description">
+                        <div class="itemSection">I can say this with
+                            <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.score * 100| number:'.2-2'}} %</p>confidence</div>
+                    </ion-item>
+                    <ion-item lines="full" *ngIf="this.result[1] && item.description == this.result[1].description">
+                        <ion-label text-center>
+                            <div>
+                                <p style="font-weight: bold; font-size: 15px;" absolute-drag>Here are some of my other predictions:</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.result[1] && item.description == this.result[1].description"></ion-item>
+                    <ion-item *ngIf="item.description != this.result[0].description">
+                        <ion-label>Label</ion-label>{{item.description}}</ion-item>
+                    <ion-item lines="none" *ngIf="item.description != this.result[0].description">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+
+
+                <ion-list *ngIf="this.feature.value == 'LOGO_DETECTION' && item.description">
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>You are looking at Logo of </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>
+                            <div class="ion-text-uppercase">
+                                <p style="font-weight: bold; font-size: 20px; color: black;" absolute-drag>{{item.description}}</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description">
+                        <div class="itemSection">I can say this with
+                            <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.score * 100| number:'.2-2'}} %</p>confidence</div>
+                    </ion-item>
+                    <ion-item lines="full" *ngIf="this.result[1] && item.description == this.result[1].description">
+                        <ion-label text-center>
+                            <div>
+                                <p style="font-weight: bold; font-size: 15px;" absolute-drag>Here are some of my other predictions:</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.result[1] && item.description == this.result[1].description"></ion-item>
+                    <ion-item *ngIf="item.description != this.result[0].description">
+                        <ion-label>Label</ion-label>{{item.description}}</ion-item>
+                    <ion-item lines="none" *ngIf="item.description != this.result[0].description">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+
+
+                <ion-list *ngIf="this.feature.value == 'WEB_DETECTION' && item.description">
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>You are looking at </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description" text-center>
+                        <ion-label>
+                            <div class="ion-text-uppercase">
+                                <p style="font-weight: bold; font-size: 20px; color: black;" absolute-drag>{{item.description}}</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="item.description == this.result[0].description">
+                        <div class="itemSection">I can say this with
+                            <p style="font-weight: bold; font-size: 15px; padding-left:5px; padding-right:5px"> {{item.score * 100| number:'.2-2'}} %</p>confidence</div>
+                    </ion-item>
+                    <ion-item lines="full" *ngIf="this.result[1] && item.description == this.result[1].description">
+                        <ion-label text-center>
+                            <div>
+                                <p style="font-weight: bold; font-size: 15px;" absolute-drag>Here are some of my other predictions:</p>
+                            </div>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" *ngIf="this.result[1] && item.description == this.result[1].description"></ion-item>
+                    <ion-item *ngIf="item.description != this.result[0].description">
+                        <ion-label>Label</ion-label>{{item.description}}</ion-item>
+                    <ion-item lines="none" *ngIf="item.description != this.result[0].description">
+                        <ion-label>Score</ion-label>{{item.score}}</ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

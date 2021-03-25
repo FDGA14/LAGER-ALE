@@ -1,0 +1,73 @@
+<ion-app>
+
+    <ion-menu side="start" menuId="first" contentId="main" contentId="main">
+        <ion-header>
+            <ion-toolbar color="warning">
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-list>
+                <ion-menu-toggle>
+
+                    <ion-item *ngIf="guest !== null" routerLink="/profile">Perfil
+                        <ion-icon color="warning" slot="start" name="person-circle"></ion-icon>
+                    </ion-item>
+
+                    <ion-item routerLink="/tabs/tab2">Busqueda
+                        <ion-icon color="warning" name="search-sharp" slot="start"></ion-icon>
+                    </ion-item>
+
+                    <ion-item routerLink="/tabs/tab1">% de Alcohol
+                        <ion-icon color="warning" name="thermometer-outline" slot="start"></ion-icon>
+                    </ion-item>
+
+                    <ion-item *ngIf="guest !== null" routerLink="/tabs/tab3">Social
+                        <ion-icon color="warning" slot="start" name="people"></ion-icon>
+                    </ion-item>
+
+                    <ion-item routerLink="/cervezas">Cervezas
+                        <ion-icon color="warning" slot="start" name="beer"></ion-icon>
+                    </ion-item>
+
+                    <ion-item *ngIf="guest !== null && !userInfo?.cerv" routerLink="/favoritas">Favoritas
+                        <ion-icon color="warning" slot="start" name="heart"></ion-icon>
+                    </ion-item>
+
+                    <ion-item *ngIf="guest !== null && !userInfo?.cerv" routerLink="/wishlist">Wishlist
+                        <ion-icon color="warning" slot="start" name="bookmark"></ion-icon>
+                    </ion-item>
+
+                    <ion-item *ngIf="guest !== null" routerLink="/scans">Cervezas escaneadas
+                        <ion-icon color="warning" slot="start" name="scan"></ion-icon>
+                    </ion-item>
+
+                    <ion-item routerLink="/calendar">Eventos cerveceros
+                        <ion-icon color="warning" slot="start" name="calendar"></ion-icon>
+                    </ion-item>
+
+                    <ion-item routerLink="/about">Acerca de</ion-item>
+
+                    <ion-item routerLink="/contact">Contacto</ion-item>
+
+                    <ng-container *ngIf="userInfo?.cerv">
+                        <ion-item routerLink="/list-products">Usuario cervecería</ion-item>
+                    </ng-container>
+
+                    <ng-container *ngIf="userInfo?.admin">
+                        <ion-item routerLink="/admin">Administrar Usuarios</ion-item>
+                    </ng-container>
+                    <br>
+                    <ion-button *ngIf="guest !== null" color="warning" (click)="Onlogout()" expand="block">Cerrar sesion</ion-button>
+                    <ion-button *ngIf="guest === null" color="warning" (click)="Onlogout()" expand="block">Iniciar sesion</ion-button>
+                    <br>
+                    <ion-button *ngIf="guest === null" color="warning" (click)="Onlogout()" expand="block">Crear cuenta</ion-button>
+
+                </ion-menu-toggle>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

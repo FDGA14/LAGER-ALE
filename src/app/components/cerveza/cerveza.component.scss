@@ -1,0 +1,33 @@
+ion-content {
+    --background: #eeeeee
+}
+
+ion-item {
+    --background: #eeeeee
+}
+
+ion-card {
+    --background: #eeeeee
+}
+
+.transparent-card {
+    background-color: transparent;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    display: block;
+    &.show-map {
+        opacity: 1;
+    }
+}
+
+//.img-detalle-sobre {
+//.    position: relative;
+//. top: -75px;
+//.left: -10px;
+//.margin-bottom: -75px;
+//.}

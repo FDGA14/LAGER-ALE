@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Publicaciones</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-button color="warning" expand="block" (click)="onNewPublicacion()">
+        <ion-text class="ion-text-center">AGREGAR NUEVA PUBLICACION</ion-text>
+        <ion-icon name="create-outline" slot="end"></ion-icon>
+    </ion-button>
+    <ng-container *ngFor="let publicacion of publicaciones">
+        <ion-card *ngIf="publicacion.uid === uid" color="warning">
+            <ion-fab horizontal="end">
+                <ion-fab-button color="light">
+                    <ion-icon name="share-social-outline"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="bottom">
+
+                    <ion-fab-button (click)="SendTwitter(publicacion)" color="light">
+                        <ion-icon name="logo-twitter"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button (click)="SendInstagram(publicacion)" color="light">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button (click)="ShareFacebook(publicacion)" color="light">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button color="light" (click)="onEditPublicacion(publicacion)">
+                        <ion-icon name="create"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button color="danger" (click)="deletePublicacion(publicacion)">
+                        <ion-icon name="trash"></ion-icon>
+                    </ion-fab-button>
+
+                </ion-fab-list>
+            </ion-fab>
+            <ion-chip>
+                <ion-label>{{user.displayName}}</ion-label>
+            </ion-chip>
+            <ion-img [src]="publicacion.imagePublicacion" style="display: block; margin: 0 auto;" color="warning"></ion-img>
+            <h2>{{user.displayName}} </h2>
+            <p>{{publicacion.descripcion}}</p>
+            <ion-item>
+                <ion-label (click)="openPublicacion(publicacion)">Ver publicación...</ion-label>
+            </ion-item>
+        </ion-card>
+    </ng-container>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

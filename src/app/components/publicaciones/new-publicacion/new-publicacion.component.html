@@ -1,0 +1,32 @@
+<div>
+    <div>
+        <form [formGroup]="newPublicacionForm" (ngSubmit)="addNewPublicacion(newPublicacionForm.value)">
+
+            <ion-label>Usuario:</ion-label>
+            <ion-item>
+                <ion-input disabled="true" formControlName="user" [value]="User"></ion-input>
+            </ion-item>
+
+            <ion-label hidden="true">UID:</ion-label>
+            <ion-item hidden="true">
+                <ion-input disabled="true" formControlName="uid" [value]="uid"></ion-input>
+            </ion-item>
+
+            <ion-label>Descripcion:</ion-label>
+            <ion-item>
+                <ion-textarea placeholder="Descripcion de la publicacion" formControlName="descripcion"></ion-textarea>
+            </ion-item>
+            <br>
+            <div>
+                <ion-label>Imagen (obligatoria)</ion-label>
+                <label>
+                <input type="file" formControlName="imagePublicacion" (change)="handleImage($event)">
+                </label>
+            </div>
+            <br>
+            <div>
+                <input type="submit" value="Guardar" mat-dialog-close="true">
+            </div>
+        </form>
+    </div>
+</div>

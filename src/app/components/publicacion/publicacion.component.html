@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-button slot="start" fill="clear" (click)="closeChat()">
+            <ion-icon color="dark" name="close"></ion-icon>
+        </ion-button>
+        <ion-title size="large" class="ion-text-start">Publicación</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card color="warning">
+        <ion-chip>
+            <ion-label>{{name}}</ion-label>
+        </ion-chip>
+
+        <ion-img [src]="imagePublicacion" color="warning" style="display: block; margin: 0 auto;"></ion-img>
+        <h2>{{name}} </h2>
+        <p>{{descripcion}}</p>
+        <ion-item>
+            <ion-label slot="start">Comentarios</ion-label>
+            <ion-button color="dark" slot="end" (click)="updateLike(chat)">
+                {{likes}}
+                <ion-icon color="danger" [name]="heartType"></ion-icon>
+            </ion-button>
+        </ion-item>
+        <div *ngIf="room">
+            <ion-card *ngFor="let comentario of room.messages">
+                <ion-card-header>
+                    <ion-button expand="block" *ngIf="comentario.UID === user" (click)="deleteComentario(comentario)" color="dark">
+                        <ion-icon color="warning" slot="end" name="trash" size="small"></ion-icon>
+                    </ion-button>
+                    <ion-item>
+                        <ion-card-title>{{comentario.displayName}}</ion-card-title>
+                    </ion-item>
+                </ion-card-header>
+                <ion-card-content>
+                    {{comentario.content}}
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </ion-card>
+
+
+</ion-content>
+
+<ion-footer>
+    <ion-item>
+        <ion-textarea placeholder="Escribir comentario..." [(ngModel)]="msg"></ion-textarea>
+        <ion-button color="warning" (click)="sendMessage()">
+            <ion-icon name="send"></ion-icon>
+        </ion-button>
+    </ion-item>
+</ion-footer>

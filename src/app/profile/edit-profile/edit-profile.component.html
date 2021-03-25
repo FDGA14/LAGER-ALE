@@ -1,0 +1,44 @@
+<div>
+    <div>
+        <form [formGroup]="editUserForm" (ngSubmit)="editUser(editUserForm.value)">
+
+            <ng-container *ngIf="userInfo.cerv; else userCerv">
+                <ion-label>Nombre de usuario:</ion-label>
+                <ion-item>
+                    <ion-input disabled="true" type='text' formControlName="displayName"></ion-input>
+                </ion-item>
+            </ng-container>
+
+            <ng-template #userCerv>
+                <ion-label>Nombre de usuario:</ion-label>
+                <ion-item>
+                    <ion-input type='text' formControlName="displayName"></ion-input>
+                </ion-item>
+            </ng-template>
+
+            <ion-label>Descripcion</ion-label>
+            <ion-item>
+                <ion-textarea placeholder="Content post" formControlName="descripcion"></ion-textarea>
+            </ion-item>
+
+            <ng-container *ngIf="! userInfo.cerv">
+                <ion-label>Peso</ion-label>
+                <ion-item>
+                    <ion-input placeholder="Peso" formControlName="peso"></ion-input>Kg.
+                </ion-item>
+            </ng-container>
+            <br>
+            <div>
+                <label>
+              <input type="file" formControlName="photoURL" (change)="handleImage($event)">
+              <ion-icon name="trash"></ion-icon><span>Imagen</span>
+          </label>
+            </div>
+
+            <br>
+            <div>
+                <input type="submit" value="Guardar" mat-dialog-close="true">
+            </div>
+        </form>
+    </div>
+</div>

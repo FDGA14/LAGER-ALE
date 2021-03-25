@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="ion-text-start">Eventos cerveceros</ion-title>
+        <ion-button *ngIf="userInfo?.cerv" color="dark" slot="end" (click)="openCalModal()">
+            <ion-icon name="calendar"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card color="warning">
+        <ion-card-header color="dark">
+            <img src="/assets/calendar.png">
+        </ion-card-header>
+        <br>
+        <ion-card-title class="ion-text-center">Festivales y Eventos</ion-card-title>
+        <ion-card-content>
+            <ion-card-subtitle>En este calendario podrás encontrar los eventos y festivales principales de la cerveza en México con sus respectivas fechas y sus puntos de reunión. También en este calendario podrás encontrar los eventos y festivales mas relevantes a nivel
+                internacional.
+            </ion-card-subtitle>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-row>
+            <!-- Move back one screen of the slides -->
+            <ion-col size="2">
+                <ion-button fill="clear" (click)="back()">
+                    <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="8" class="ion-text-center">
+                <h2>{{ viewTitle }}</h2>
+            </ion-col>
+
+            <!-- Move forward one screen of the slides -->
+            <ion-col size="2">
+                <ion-button fill="clear" (click)="next()">
+                    <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleChanged($event)">
+        </calendar>
+    </ion-card>
+
+</ion-content>
+
+<ion-tab-bar slot="bottom" color="warning">
+    <ion-tab-button routerLink="../tabs/tab1">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <ion-label>% de Alcohol</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab2">
+        <ion-icon name="search-sharp"></ion-icon>
+        <ion-label>Búsqueda</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="../tabs/tab3">
+        <ion-icon name="people"></ion-icon>
+        <ion-label>Social</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>
